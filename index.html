@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#174c3c"><meta name="description" content="Control offline de invitaciones de boda">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg">
+<title>Control de Invitaciones</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header><div class="brand">♥</div><div><h1>Control de Invitaciones</h1><p>Control de acceso · Boda</p></div><span id="offline" class="pill">Sin conexión</span></header>
+<nav><button class="tab active" data-view="scan">Escanear</button><button class="tab" data-view="guests">Invitados</button><button class="tab" data-view="tables">Mesas</button><button class="tab" data-view="settings">Datos</button></nav>
+<main>
+<section id="view-scan" class="view active">
+<div class="hero"><h2>Validar invitación</h2><p>Escanea el código de barras impreso o escribe el código manualmente.</p></div>
+<div class="panel scanner">
+<video id="video" playsinline muted></video>
+<div class="scan-actions"><button id="startScan" class="primary">Abrir cámara</button><button id="stopScan" class="secondary">Detener</button></div>
+<p id="cameraMsg" class="muted">La cámara funciona en HTTPS o en localhost. Si no está disponible, usa la búsqueda manual.</p>
+<form id="lookupForm" class="lookup"><input id="codeInput" autocomplete="off" placeholder="Ej. BODA-0001" aria-label="Código de invitación"><button class="primary">Buscar</button></form>
+</div>
+<div id="result" class="result empty"><div class="result-icon">⌕</div><h3>Esperando invitación</h3><p>El resultado aparecerá aquí.</p></div>
+<div class="tip">Consejo: cada invitación debe tener un código único, aunque el apellido se repita.</div>
+</section>
+<section id="view-guests" class="view">
+<div class="section-head"><div><h2>Lista de invitados</h2><p id="guestCount">Todavía no hay datos importados.</p></div><button id="exportCsv" class="secondary">Exportar CSV</button></div>
+<div class="search-row"><input id="guestSearch" placeholder="Buscar familia, referencia o código…"></div>
+<div id="guestList" class="guest-list"></div>
+</section>
+<section id="view-tables" class="view">
+<div class="section-head"><div><h2>Control de mesas</h2><p>Capacidad configurada: 10 lugares por mesa.</p></div><div class="capacity"><label for="capacityInput">Lugares</label><input id="capacityInput" type="number" min="1" max="30" value="10"></div></div>
+<div id="tableSummary" class="table-grid"></div>
+</section>
+<section id="view-settings" class="view">
+<div class="panel"><h2>Importar tu Excel</h2><p>Selecciona el archivo .xlsx/.xlsm o un CSV exportado desde Excel. Los datos se guardan en este dispositivo y la app puede trabajar sin internet.</p>
+<label class="file-button">Elegir archivo Excel/CSV<input type="file" id="fileInput" accept=".xlsx,.xlsm,.csv,.txt"></label>
+<div id="importStatus" class="status">No se ha importado ningún archivo.</div>
+<div class="actions"><button id="downloadTemplate" class="secondary">Descargar plantilla CSV</button><button id="clearData" class="danger">Borrar datos locales</button></div></div>
+<div class="panel"><h2>Generar códigos</h2><p>Si tu Excel no tiene códigos, la app crea uno único para cada fila. Después puedes exportar la lista a CSV, abrirla en Excel e imprimir la columna <b>CODIGO</b> como código de barras usando la opción “Imprimir códigos” de cada invitado o la hoja de etiquetas.</p><button id="printLabels" class="primary">Imprimir hoja de códigos</button><button id="exportAll" class="secondary">Exportar invitados y códigos</button></div>
+<div class="panel"><h2>Uso sin conexión</h2><p>Abre esta app una vez con internet para que el navegador guarde los archivos. Después puedes instalarla en el teléfono y usarla en modo avión. La lectura con cámara depende de que el navegador permita acceso a la cámara; siempre queda disponible la búsqueda manual.</p><p class="muted">Los datos permanecen en este navegador/dispositivo. No se envían a ningún servidor.</p></div>
+</section>
+</main>
+<footer>Hecho para llevar el control de tus invitaciones ♥</footer>
+<script src="app.js"></script>
+</body></html>

@@ -1,0 +1,28 @@
+CONTROL DE INVITACIONES DE BODA — PWA OFFLINE
+
+QUÉ INCLUYE
+- Importación de Excel .xlsx/.xlsm (lee la primera hoja) y CSV.
+- Códigos únicos para identificar cada invitación aunque se repita el apellido.
+- Escáner de códigos de barras con cámara cuando el navegador lo admite.
+- Búsqueda manual por código, lista de invitados y vista de ocupación por mesa.
+- Capacidad predeterminada de 10 personas por mesa, editable.
+- Generación e impresión de códigos de barras Code 128, individual o en hoja.
+- Exportación CSV compatible con Excel.
+- Datos guardados en el dispositivo; no usa servidor ni envía datos.
+- Service worker para cargar la interfaz sin internet después de la primera visita.
+
+CÓMO USAR
+1. Sube todos los archivos y carpetas de este ZIP a la raíz de un sitio HTTPS (por ejemplo GitHub Pages). No subas el ZIP comprimido: extrae y sube los archivos; index.html debe quedar en la raíz.
+2. Abre el sitio con conexión una vez. En Android, usa Chrome y elige “Instalar aplicación” o “Añadir a pantalla de inicio”.
+3. En Datos, importa tu Excel. Los encabezados aceptados incluyen: N°, FAMILIA, NUMERO DE MESA, NUMERO DE PERSONAS, NOMBRE CONOCIDO (REFERENCIA), PERSONAS POR MESAS y CODIGO.
+4. Si CODIGO está vacío o repetido, la app asigna BODA-0001, BODA-0002, etc. Exporta invitados y códigos para conservar la lista definitiva.
+5. Imprime los códigos desde “Imprimir hoja de códigos”. Verifica que el código impreso coincida con la columna CODIGO antes de pegarlos en las invitaciones.
+6. El día de la boda, abre Escanear, permite la cámara y lee el código. La app mostrará familia, referencia, mesa, número de personas y ocupación de la mesa.
+
+IMPORTANTE SOBRE LOS CÓDIGOS
+- La app NO puede adivinar qué código ya fue impreso si el código impreso no existe en el Excel. Los códigos generados deben imprimirse desde esta app (o copiarse a la columna CODIGO del Excel) y usarse en las invitaciones.
+- La importación XLSX está diseñada para hojas comunes de Excel con encabezados en la primera fila y datos en la primera hoja. Si un archivo no abre, guárdalo desde Excel como CSV UTF-8 e importa ese CSV.
+- La cámara web requiere HTTPS o localhost y un navegador compatible con BarcodeDetector. Si el navegador no soporta lectura, usa un Chrome actualizado en Android o introduce el código manualmente.
+- “Personas por mesa” se calcula sumando NUMERO DE PERSONAS de todas las invitaciones asignadas a esa mesa; no depende del valor precalculado del Excel.
+- La app guarda datos en el almacenamiento local del navegador. No borres los datos del navegador ni cambies de dispositivo sin exportar una copia.
+- Los códigos generados por la app son Code 128, adecuados para impresión. No uses una fuente de código de barras en Excel sin convertir el texto a la codificación correspondiente.

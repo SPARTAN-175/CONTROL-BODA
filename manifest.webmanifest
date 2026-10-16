@@ -1,0 +1,17 @@
+{
+  "name": "Control de Invitaciones de Boda",
+  "short_name": "Invitaciones",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f4ee",
+  "theme_color": "#174c3c",
+  "description": "Control offline de invitaciones por código de barras",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
