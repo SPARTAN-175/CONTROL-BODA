@@ -6,7 +6,7 @@ QUÉ INCLUYE
 - Escáner de códigos de barras con cámara cuando el navegador lo admite.
 - Búsqueda manual por código, lista de invitados y vista de ocupación por mesa.
 - Capacidad predeterminada de 10 personas por mesa, editable.
-- Generación e impresión de códigos de barras Code 128, individual o en hoja.
+- Generación e impresión de códigos de barras Code 128, individual o en hoja, con nombre de familia, referencia, mesa, personas y código visible para identificar cada etiqueta.
 - Exportación CSV compatible con Excel.
 - Datos guardados en el dispositivo; no usa servidor ni envía datos.
 - Service worker para cargar la interfaz sin internet después de la primera visita.
@@ -26,3 +26,13 @@ IMPORTANTE SOBRE LOS CÓDIGOS
 - “Personas por mesa” se calcula sumando NUMERO DE PERSONAS de todas las invitaciones asignadas a esa mesa; no depende del valor precalculado del Excel.
 - La app guarda datos en el almacenamiento local del navegador. No borres los datos del navegador ni cambies de dispositivo sin exportar una copia.
 - Los códigos generados por la app son Code 128, adecuados para impresión. No uses una fuente de código de barras en Excel sin convertir el texto a la codificación correspondiente.
+
+
+INSTALACIÓN / SOLUCIÓN AL PROBLEMA
+- No se instala abriendo el ZIP ni haciendo doble clic en index.html. Las PWA necesitan servirse por HTTPS (GitHub Pages sirve HTTPS).
+- Extrae TODOS los archivos de este ZIP y súbelos al mismo directorio de tu sitio, manteniendo juntos index.html, app.js, styles.css, sw.js, manifest.webmanifest, icon.svg, icon-192.png e icon-512.png.
+- En GitHub Pages, confirma que la URL termine abriendo index.html en la raíz o carpeta del proyecto y que sea HTTPS.
+- Abre la URL publicada en Chrome, recarga y espera unos segundos. En Datos aparece “Instalar aplicación”; si Chrome no ofrece instalación automática, usa ⋮ > Instalar aplicación / Añadir a pantalla de inicio.
+- La primera apertura debe ser con internet para descargar y guardar los archivos. Luego prueba modo avión. Los datos importados se guardan localmente en el mismo navegador/dispositivo.
+- Para actualizar una instalación anterior, reemplaza TODOS los archivos con los de esta versión, abre la URL con internet y recarga dos veces. El service worker v3 elimina la caché anterior de esta aplicación.
+- La impresión individual y la hoja de códigos vuelven a mostrar la familia, referencia, mesa, número de personas, código de barras y código legible; así puedes identificar a quién pertenece cada etiqueta.
