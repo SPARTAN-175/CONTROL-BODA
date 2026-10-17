@@ -44,3 +44,48 @@ VERSION 4 — FLUJO PARA PERSONAL DE PUERTA
 - La ficha permite registrar cuántas personas de ese pase llegaron ahora, incluso si llegan por separado. Se pide confirmación para evitar toques accidentales, se limita el número al pase autorizado y muestra cuántas faltan.
 - Se guarda fecha/hora local del último registro, se puede exportar CSV con el estado de llegada y hay una acción para reiniciar todas las llegadas sin borrar invitados.
 - Importante: los registros de llegada son locales a cada dispositivo. Para evitar duplicados cuando haya varios auxiliares, todos deben usar el mismo teléfono. Los dispositivos distintos no sincronizan en modo offline.
+
+
+CAMBIOS V4.1
+- Corregido botón Ver: ahora abre la pestaña Escanear y muestra la ficha correspondiente.
+- Se añadió marca local de invitación entregada y hora de entrega.
+- La entrega y el registro de llegada se guardan en el dispositivo local.
+- La sincronización en tiempo real entre varios teléfonos NO está activada en esta versión. Requiere conectar un backend compartido y conexión a internet; no es posible evitar duplicados entre teléfonos aislados completamente offline.
+
+
+CONFIGURACIÓN FIREBASE (OBLIGATORIA ANTES DE USAR VARIOS TELÉFONOS)
+El código ya incluye la configuración del proyecto Firebase proporcionada por el usuario y la sincronización Firestore. Para que funcione de verdad, completa una vez estos pasos en Firebase Console:
+1. Abre https://console.firebase.google.com/ y selecciona el proyecto control-boda-85fc9.
+2. Authentication > Sign-in method > habilita “Correo electrónico/Contraseña”.
+3. Authentication > Users > Add user: crea una cuenta individual para cada auxiliar autorizado. Comparte las credenciales solo con el personal de la puerta.
+4. Firestore Database > Create database si todavía no existe. Copia las reglas del archivo firestore.rules y publícalas en la pestaña Rules.
+5. En Authentication > Settings > Authorized domains, asegúrate de que el dominio de GitHub Pages esté autorizado (si corresponde).
+6. Publica todos los archivos de este ZIP en la raíz del sitio HTTPS. Entra a Datos desde el teléfono que tenga la lista definitiva, inicia sesión y pulsa “Publicar lista en Firebase” UNA SOLA VEZ. Los demás teléfonos inician sesión con sus propias cuentas y recibirán la lista automáticamente.
+7. Prueba dos teléfonos antes de la boda: registra una persona en el primero y verifica que el segundo actualice el contador.
+
+IMPORTANTE SOBRE CONCURRENCIA Y OFFLINE
+- Las llegadas hechas con sesión y conexión usan una transacción Firestore para comprobar el saldo del pase y evitar que dos auxiliares registren más personas de las autorizadas.
+- La marca de invitación entregada se sincroniza por Firestore al estar en línea.
+- Sin conexión, los cambios son solo locales y no se reflejan en otros teléfonos hasta que se implementa/reconcilia la sincronización. No uses dos teléfonos desconectados esperando prevención instantánea de duplicados.
+- El archivo de reglas permite leer/escribir únicamente a usuarios autenticados. No uses reglas públicas de tipo “allow read, write: if true”.
+- La configuración web de Firebase (incluida apiKey) identifica el proyecto, pero no sustituye Authentication ni las reglas de Firestore.
+- El navegador debe cargar una vez los SDK de Firebase con internet. La app básica y los datos locales continúan disponibles offline; sincronización compartida requiere conexión.
+
+
+VERSION 6 — ADMINISTRADOR
+- El correo administrador configurado en la interfaz es avengers_0077@hotmail.com.
+- El formulario de acceso y las reglas de Firestore de esta versión restringen el acceso a ese correo.
+- Configura esa cuenta en Firebase Authentication con el método Correo/Contraseña; la app no contiene ni necesita la contraseña.
+- Publica las reglas del archivo firestore.rules.
+- El almacenamiento local y la consulta offline siguen disponibles después de haber cargado la lista en el dispositivo.
+- Importante: la vinculación QR de auxiliares sin cuenta NO está implementada en esta versión. No sería seguro simularla solo con un QR generado en el navegador: para autorizar dispositivos sin compartir la contraseña admin hace falta una Cloud Function o backend que valide y emita credenciales limitadas. Hasta implementarla, no publiques la lista para acceso de auxiliares no autenticados.
+
+
+VERSION 7 - REGISTRO DE AUXILIARES Y MODO LOCAL
+- El administrador autorizado es avengers_0077@hotmail.com.
+- Los auxiliares crean su propia cuenta con correo y contraseña en la sección Datos. En Firebase Console debe estar habilitado Authentication > Sign-in method > Email/Password.
+- Publica las reglas actualizadas de firestore.rules en Firebase Console > Firestore Database > Rules. Estas reglas permiten al administrador publicar la lista y a cuentas autenticadas consultar la lista y registrar únicamente campos de entrega/llegada.
+- Al importar un Excel/CSV, la aplicación procesa sus filas; el archivo original no se carga a Firebase. Si el administrador tiene sesión y conexión, la lista de datos se publica automáticamente.
+- La app conserva datos localmente y puede identificar invitaciones sin Internet después de cargar la lista y abrir la PWA una vez con conexión. Los cambios offline se quedan en ese dispositivo hasta sincronizarse. No hay sincronización instantánea entre teléfonos desconectados.
+- Para evitar inconsistencias en puerta, los registros de llegada en línea usan una transacción. Si se trabaja sin señal, coordinen un solo teléfono para marcar llegadas y usen la lista impresa como respaldo.
+- IMPORTANTE: antes del evento, probar el alta de un auxiliar, importación, publicación, sincronización y uso en modo avión con datos de prueba.
