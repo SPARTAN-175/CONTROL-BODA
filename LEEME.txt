@@ -36,3 +36,11 @@ INSTALACIÓN / SOLUCIÓN AL PROBLEMA
 - La primera apertura debe ser con internet para descargar y guardar los archivos. Luego prueba modo avión. Los datos importados se guardan localmente en el mismo navegador/dispositivo.
 - Para actualizar una instalación anterior, reemplaza TODOS los archivos con los de esta versión, abre la URL con internet y recarga dos veces. El service worker v3 elimina la caché anterior de esta aplicación.
 - La impresión individual y la hoja de códigos vuelven a mostrar la familia, referencia, mesa, número de personas, código de barras y código legible; así puedes identificar a quién pertenece cada etiqueta.
+
+
+VERSION 4 — FLUJO PARA PERSONAL DE PUERTA
+- El visor de cámara es más compacto; tras leer un código, la pantalla baja automáticamente hasta la ficha de la invitación.
+- Al leer un código suena un doble pitido. Un código desconocido emite un tono distinto. El navegador debe permitir audio; el sonido se activa tras la interacción con la cámara/búsqueda.
+- La ficha permite registrar cuántas personas de ese pase llegaron ahora, incluso si llegan por separado. Se pide confirmación para evitar toques accidentales, se limita el número al pase autorizado y muestra cuántas faltan.
+- Se guarda fecha/hora local del último registro, se puede exportar CSV con el estado de llegada y hay una acción para reiniciar todas las llegadas sin borrar invitados.
+- Importante: los registros de llegada son locales a cada dispositivo. Para evitar duplicados cuando haya varios auxiliares, todos deben usar el mismo teléfono. Los dispositivos distintos no sincronizan en modo offline.
